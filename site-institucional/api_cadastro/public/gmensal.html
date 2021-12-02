@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grafico mensal</title>
+
+    <!-- Referenciando estilização externa do site (CSS)  -->
+    <link rel="stylesheet" href="css/style-dashboard.css">
+    <link rel="shortcut icon" href="img/icone_topo.ico" type="image/x-icon">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans&display=swap" rel="stylesheet">
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script type='text/javascript' src='https://widget.freshworks.com/widgets/73000000613.js' async defer></script>
+
+    <script>
+        //verificação para ver se o usuário já esta logado pela session
+        if (sessionStorage.ID_USUARIO != undefined) {
+            if (sessionStorage.TIPO_USUARIO == 'null') {
+                window.location.href = "lista.html";
+            }else{
+            }
+        }else{
+            window.location.href = "login.html";
+        }
+    </script>
+
+</head>
+
+<body>
+    <!-- Menu lateral  -->
+    <div class="Menu_Dashboard">
+        <div class="container">
+            <div onclick="window.location.href = 'dashboard.html'" style="margin-top: 0;" class="box_icon">
+                <img class="home_icon" src="img/icones/pagina-inicial.png" alt="">
+                <p>Home</p>
+            </div>
+            <div class="box_icon_select">
+                <img class="graficoM_icon" src="img/icones/graficos.png" alt="">
+                <p>Mensal</p>
+            </div>
+            <div onclick="window.location.href = 'ganual.html'" class="box_icon">
+                <img class="graficoA_icon" src="img/icones/graficos.png" alt="">
+                <p>Anual</p>
+            </div>
+            <div class="logout">
+                <a onclick="sessionStorage.clear();" href="login.html">
+                    <img class="logout_icon" src="img/icones/logout.png" alt="">
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Conteudo  -->
+    <div id="container_mensal">
+        <p id="txt_msg">Graficos mensais</p>
+        <hr id="hr_msg">
+
+
+        <div class="div_card_mensal">
+            <div class="titulo_card">
+                <p id="p_mes">Escolha um mês para visualizar</p>
+            </div>
+            <div class="box_card">
+                <canvas id="myChart" width="100" height="48"></canvas>
+            </div>
+
+            <div class="div_btn_mes">
+                <div class="l1">
+                    <button id="btn1" onclick="pegar_mes(1);">Janeiro</button>
+                    <button id="btn2" onclick="pegar_mes(2)">Fevereiro</button>
+                    <button id="btn3" onclick="pegar_mes(3)">Março</button>
+                    <button id="btn4" onclick="pegar_mes(4)">Abril</button>
+                    <button id="btn5" onclick="pegar_mes(5)">Maio</button>
+                    <button id="btn6" onclick="pegar_mes(6)">Junho</button>
+                </div>
+                <div class="l2">
+                    <button id="btn7" onclick="pegar_mes(7)">Julho</button>
+                    <button id="btn8" onclick="pegar_mes(8)">Agosto</button>
+                    <button id="btn9" onclick="pegar_mes(9)">Setembro</button>
+                    <button id="btn10" onclick="pegar_mes(10)">Outubro</button>
+                    <button id="btn11" onclick="pegar_mes(11)">Novembro</button>
+                    <button id="btn12" onclick="pegar_mes(12)">Dezembro</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</body>
+<script>
+function pegar_mes(mes) {
+        for (var j = 0; j < 31; j++) {
+            myChart.data.datasets[0].data[j] = 0;
+            console.log(myChart.data.datasets[0].data[j]);
+            myChart.update();
+        }
+        mes_atual = mes;
+        if(mes_atual == 1){
+            p_mes.innerHTML = btn1.innerHTML;
+        }else if(mes_atual == 2){
+            p_mes.innerHTML = btn2.innerHTML;
+        }else if(mes_atual == 3){
+            p_mes.innerHTML = btn3.innerHTML;
+        }else if(mes_atual == 4){
+            p_mes.innerHTML = btn4.innerHTML;
+        }else if(mes_atual == 5){
+            p_mes.innerHTML = btn5.innerHTML;
+        }else if(mes_atual == 6){
+            p_mes.innerHTML = btn6.innerHTML;
+        }else if(mes_atual == 7){
+            p_mes.innerHTML = btn7.innerHTML;
+        }else if(mes_atual == 8){
+            p_mes.innerHTML = btn8.innerHTML;
+        }else if(mes_atual == 9){
+            p_mes.innerHTML = btn9.innerHTML;
+        }else if(mes_atual == 10){
+            p_mes.innerHTML = btn10.innerHTML;
+        }else if(mes_atual == 11){
+            p_mes.innerHTML = btn11.innerHTML;
+        }else if(mes_atual == 12){
+            p_mes.innerHTML = btn12.innerHTML;
+        }
+
+        graficoM2();
+    }
+
+    var ctx = document.getElementById('myChart').getContext('2d');
+    var myChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: ['Dia 01', 'Dia 02', 'Dia 03', 'Dia 04', 'Dia 05', 'Dia 06', 'Dia 07', 'Dia 08', 'Dia 09', 'Dia 10', 'Dia 11', 'Dia 12', 'Dia 13', 'Dia 14', 'Dia 15', 'Dia 16', 'Dia 17', 'Dia 18', 'Dia 19', 'Dia 20', 'Dia 21', 'Dia 22', 'Dia 23', 'Dia 24', 'Dia 25', 'Dia 26', 'Dia 27', 'Dia 28', 'Dia 29', 'Dia 30', 'Dia 31'],
+            datasets: [{
+                label: 'Temperatura Média do mês',
+                fill: 'start',
+                backgroundColor: [
+                    'rgba(54, 162, 235, 0.2)',
+                ],
+                borderColor: [
+                    'rgba(54, 162, 235, 1)'
+                ],
+                borderWidth: 1.5
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+    
+
+    function graficoM2() {
+        console.log("ESTE É O MES ATUAL SELECIONA: " + mes_atual);
+        var corpo = {
+            idGranja: sessionStorage.TIPO_USUARIO,
+            mes: mes_atual
+        }
+        fetch("/usuarios/graficoM2", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(corpo)
+        }).then(function (resposta) {
+            console.log("ESTOU NO THEN DO graficoM2()!")
+
+            if (resposta.ok) {
+                resposta.json().then(function (resposta) {
+                    console.log("Dados recebidos da graficoM2: ", JSON.stringify(resposta[0].mediaM2));
+
+                    for (var c = 0; c < resposta.length; c++) {
+                        myChart.data.datasets[0].data[c] = Number(resposta[c].mediaM2)
+                        myChart.update();
+
+
+                    }
+                });
+            } else {
+                console.log(resposta)
+                throw ('Houve um erro na API!');
+            }
+        }).catch(function (resposta) {
+            console.error(resposta);
+        });
+        return false;
+    };
+
+</script>
+
+</html>
